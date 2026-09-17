@@ -11,6 +11,30 @@
   <a href="https://github.com/astral-sh/ruff"><img alt="Ruff" src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json"></a>
 </p>
 
+> ### 🔀 This is a fork with a browser backend
+>
+> Fork of [**awlevin/typesafe-computer-use**](https://github.com/awlevin/typesafe-computer-use)
+> by Aaron Levin (MIT). Upstream PR:
+> [#4](https://github.com/awlevin/typesafe-computer-use/pull/4).
+>
+> This fork adds a **browser backend** that reads the DOM over the Chrome DevTools Protocol
+> instead of screenshotting the screen and running OCR. Same TypeSafe decision loop, same
+> contract, but perception is **62x to 221x faster** — and the answer is exact rather than
+> a lossy guess:
+>
+> | page | this fork (DOM) | upstream (screencapture + Vision OCR) | |
+> | --- | --- | --- | --- |
+> | local fixture | **1.3 ms** | 288.0 ms | **221x faster** |
+> | news.ycombinator.com | **4.5 ms** | 697.3 ms | **155x faster** |
+> | en.wikipedia.org/wiki/Singapore | **14.4 ms** | 897.0 ms | **62x faster** |
+>
+> End-to-end that is **302–380 ms per step** (2.6–3.5 steps/sec), where perception is ~0% of
+> a step and the TypeSafe decision is the remaining ~280–350 ms. It needs no Screen
+> Recording permission and cannot fight you for the cursor.
+>
+> See **[Browser backend: DOM perception, no OCR](#browser-backend-dom-perception-no-ocr)**
+> below. Everything else on this page is upstream's.
+
 **typesafe-computer-use** drives a Mac toward a goal you type in plain English, for about a
 fiftieth of a cent per step. It never sends a screenshot to a big model. Instead it
 reads the screen deterministically, asks a small classifier which action comes next,
