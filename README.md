@@ -22,7 +22,7 @@
 > contract, but perception is **62x to 221x faster** — and the answer is exact rather than
 > a lossy guess:
 >
-> | page | this fork (DOM) | upstream (screencapture + Vision OCR) | |
+> | page | this fork (DOM) | upstream, OCR-only commit | |
 > | --- | --- | --- | --- |
 > | local fixture | **1.3 ms** | 288.0 ms | **221x faster** |
 > | news.ycombinator.com | **4.5 ms** | 697.3 ms | **155x faster** |
@@ -31,6 +31,9 @@
 > End-to-end that is **302–380 ms per step** (2.6–3.5 steps/sec), where perception is ~0% of
 > a step and the TypeSafe decision is the remaining ~280–350 ms. It needs no Screen
 > Recording permission and cannot fight you for the cursor.
+>
+> Measured against upstream's OCR-only path. Upstream has since added an accessibility-tree
+> item source that runs *alongside* OCR, so its capture + OCR cost is unchanged; see the PR.
 >
 > See **[Browser backend: DOM perception, no OCR](#browser-backend-dom-perception-no-ocr)**
 > below. Everything else on this page is upstream's.
